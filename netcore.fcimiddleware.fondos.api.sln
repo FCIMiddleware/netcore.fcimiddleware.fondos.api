@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33815.320
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore.fcimiddleware.fondos.api", "src\netcore.fcimiddleware.fondos.api\netcore.fcimiddleware.fondos.api.csproj", "{61598CCD-31D6-4A1A-8A61-38CDF27AF146}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore.fcimiddleware.fondos.application", "src\netcore.fcimiddleware.fondos.application\netcore.fcimiddleware.fondos.application.csproj", "{0D7032FC-5157-4AFA-B95C-CE8EDD69857A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore.fcimiddleware.fondos.domain", "src\netcore.fcimiddleware.fondos.domain\netcore.fcimiddleware.fondos.domain.csproj", "{C6AF135A-CAA3-468F-9AC2-4B7B8A5239EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "netcore.fcimiddleware.fondos.infrastructure", "src\netcore.fcimiddleware.fondos.infrastructure\netcore.fcimiddleware.fondos.infrastructure.csproj", "{54125E2B-2EAC-4DDC-A787-C7611094B854}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "netcore.fcimiddleware.fondos.application.unittest", "test\netcore.fcimiddleware.fondos.application.unittest\netcore.fcimiddleware.fondos.application.unittest.csproj", "{39DBC9B0-3652-4D4C-9A24-91CCA465A2D7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{61598CCD-31D6-4A1A-8A61-38CDF27AF146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61598CCD-31D6-4A1A-8A61-38CDF27AF146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61598CCD-31D6-4A1A-8A61-38CDF27AF146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61598CCD-31D6-4A1A-8A61-38CDF27AF146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D7032FC-5157-4AFA-B95C-CE8EDD69857A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D7032FC-5157-4AFA-B95C-CE8EDD69857A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D7032FC-5157-4AFA-B95C-CE8EDD69857A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D7032FC-5157-4AFA-B95C-CE8EDD69857A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6AF135A-CAA3-468F-9AC2-4B7B8A5239EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6AF135A-CAA3-468F-9AC2-4B7B8A5239EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6AF135A-CAA3-468F-9AC2-4B7B8A5239EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6AF135A-CAA3-468F-9AC2-4B7B8A5239EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54125E2B-2EAC-4DDC-A787-C7611094B854}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54125E2B-2EAC-4DDC-A787-C7611094B854}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54125E2B-2EAC-4DDC-A787-C7611094B854}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54125E2B-2EAC-4DDC-A787-C7611094B854}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39DBC9B0-3652-4D4C-9A24-91CCA465A2D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39DBC9B0-3652-4D4C-9A24-91CCA465A2D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39DBC9B0-3652-4D4C-9A24-91CCA465A2D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39DBC9B0-3652-4D4C-9A24-91CCA465A2D7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ACB60A14-8055-41A8-99E0-39DA727E0209}
+	EndGlobalSection
+EndGlobal
