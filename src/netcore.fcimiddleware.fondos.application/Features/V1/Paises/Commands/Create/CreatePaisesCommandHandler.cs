@@ -47,14 +47,17 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.Paises.Commands.C
                 throw new AlreadyExistsException(nameof(Pais), request.Descripcion);
             }
 
-            var cafciSpec = new PaisesSpecificationCAFCI(request.IdCAFCI!.ToUpper());
-            var idCAFCIExists = await _unitOfWork.RepositoryRead<Pais>().GetByIdWithSpec(cafciSpec);
-
-            if (idCAFCIExists != null)
+            if (request.IdCAFCI != null)
             {
-                _logger.LogError($"Create - {nameof(Pais)} {idCAFCIExists.IdCAFCI} ya existe");
-                throw new AlreadyExistsException(nameof(Pais), request.Descripcion);
-            }
+                var cafciSpec = new PaisesSpecificationCAFCI(request.IdCAFCI!.ToUpper());
+                var idCAFCIExists = await _unitOfWork.RepositoryRead<Pais>().GetByIdWithSpec(cafciSpec);
+
+                if (idCAFCIExists != null)
+                {
+                    _logger.LogError($"Create - {nameof(Pais)} {idCAFCIExists.IdCAFCI} ya existe");
+                    throw new AlreadyExistsException(nameof(Pais), request.Descripcion);
+                }
+            }            
         }
     }
 }
