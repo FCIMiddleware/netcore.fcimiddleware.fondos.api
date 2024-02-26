@@ -73,14 +73,17 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.Monedas.Commands.
                 throw new AlreadyExistsException(nameof(Moneda), request.Descripcion);
             }
 
-            var idCAFCISpec = new MonedasSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
-            var idCAFCIExists = await _unitOfWork.RepositoryRead<Moneda>().GetByIdWithSpec(idCAFCISpec);
-
-            if (idCAFCIExists != null)
+            if (request.IdCAFCI != null)
             {
-                _logger.LogError($"Update - {nameof(Moneda)} {idCAFCIExists.IdCAFCI} ya existe");
-                throw new AlreadyExistsException(nameof(Moneda), request.Descripcion);
-            }
+                var idCAFCISpec = new MonedasSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
+                var idCAFCIExists = await _unitOfWork.RepositoryRead<Moneda>().GetByIdWithSpec(idCAFCISpec);
+
+                if (idCAFCIExists != null)
+                {
+                    _logger.LogError($"Update - {nameof(Moneda)} {idCAFCIExists.IdCAFCI} ya existe");
+                    throw new AlreadyExistsException(nameof(Moneda), request.Descripcion);
+                }
+            }            
         }
     }
 }
