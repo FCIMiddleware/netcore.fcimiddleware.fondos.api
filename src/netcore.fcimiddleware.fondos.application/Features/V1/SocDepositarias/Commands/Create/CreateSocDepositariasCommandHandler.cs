@@ -47,13 +47,16 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.C
                 throw new AlreadyExistsException(nameof(SocDepositaria), request.Descripcion);
             }
 
-            var cafciSpec = new SocDepositariasSpecificationCAFCI(request.IdCAFCI!.ToUpper());
-            var idCAFCIExists = await _unitOfWork.RepositoryRead<SocDepositaria>().GetByIdWithSpec(cafciSpec);
-
-            if (idCAFCIExists != null)
+            if (request.IdCAFCI != null)
             {
-                _logger.LogError($"Create - {nameof(SocDepositaria)} {idCAFCIExists.IdCAFCI} ya existe");
-                throw new AlreadyExistsException(nameof(SocDepositaria), request.Descripcion);
+                var cafciSpec = new SocDepositariasSpecificationCAFCI(request.IdCAFCI!.ToUpper());
+                var idCAFCIExists = await _unitOfWork.RepositoryRead<SocDepositaria>().GetByIdWithSpec(cafciSpec);
+
+                if (idCAFCIExists != null)
+                {
+                    _logger.LogError($"Create - {nameof(SocDepositaria)} {idCAFCIExists.IdCAFCI} ya existe");
+                    throw new AlreadyExistsException(nameof(SocDepositaria), request.Descripcion);
+                }
             }
         }
     }

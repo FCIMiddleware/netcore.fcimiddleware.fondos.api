@@ -73,14 +73,17 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.AgColocadores.Com
                 throw new AlreadyExistsException(nameof(AgColocador), request.Descripcion);
             }
 
-            var idCAFCISpec = new AgColocadoresSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
-            var idCAFCIExists = await _unitOfWork.RepositoryRead<AgColocador>().GetByIdWithSpec(idCAFCISpec);
-
-            if (idCAFCIExists != null)
+            if (request.IdCAFCI != null)
             {
-                _logger.LogError($"Update - {nameof(AgColocador)} {idCAFCIExists.IdCAFCI} ya existe");
-                throw new AlreadyExistsException(nameof(AgColocador), request.Descripcion);
-            }
+                var idCAFCISpec = new AgColocadoresSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
+                var idCAFCIExists = await _unitOfWork.RepositoryRead<AgColocador>().GetByIdWithSpec(idCAFCISpec);
+
+                if (idCAFCIExists != null)
+                {
+                    _logger.LogError($"Update - {nameof(AgColocador)} {idCAFCIExists.IdCAFCI} ya existe");
+                    throw new AlreadyExistsException(nameof(AgColocador), request.Descripcion);
+                }
+            }            
         }
     }
 }
