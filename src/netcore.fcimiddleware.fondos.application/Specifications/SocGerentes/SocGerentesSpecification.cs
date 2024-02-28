@@ -27,6 +27,8 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocGerentes
                         AddOrderBy(p => p.Descripcion); break;
                 }
             }
+            else
+                AddOrderBy(p => p.Id);
         }
     }
 }

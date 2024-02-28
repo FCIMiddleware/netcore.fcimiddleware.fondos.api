@@ -23,6 +23,8 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.CondIngEgrFond
                         AddOrderBy(p => p.Descripcion); break;
                 }
             }
+            else
+                AddOrderBy(p => p.Id);
         }
     }
 }

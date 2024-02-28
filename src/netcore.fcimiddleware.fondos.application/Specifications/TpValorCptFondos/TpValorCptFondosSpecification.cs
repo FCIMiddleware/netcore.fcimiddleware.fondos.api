@@ -27,6 +27,8 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.TpValorCptFond
                         AddOrderBy(p => p.Descripcion); break;
                 }
             }
+            else
+                AddOrderBy(p => p.Id);
         }
     }
 }
