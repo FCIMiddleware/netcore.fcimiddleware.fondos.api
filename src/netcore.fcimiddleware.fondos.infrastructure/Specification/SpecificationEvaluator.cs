@@ -15,12 +15,12 @@ namespace netcore.fcimiddleware.fondos.infrastructure.Specification
 
             if(spec.OrderBy != null)
             {
-                inputQuery.OrderBy(spec.OrderBy);
+                inputQuery = inputQuery.OrderBy(spec.OrderBy);
             }
 
             if (spec.OrderByDescending != null)
             {
-                inputQuery.OrderBy(spec.OrderByDescending);
+                inputQuery = inputQuery.OrderBy(spec.OrderByDescending);
             }
 
             if(spec.IsPagingEnable)
