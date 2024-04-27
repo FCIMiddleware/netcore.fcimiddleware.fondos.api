@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Paises
         public PaisesSpecification(PaisesSpecificationParams paisesParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(paisesParam.Search) || p.Descripcion!.Contains(paisesParam.Search)
+                  string.IsNullOrEmpty(paisesParam.Search) || p.Descripcion!.ToUpper().Contains(paisesParam.Search.ToUpper())
                 )
         {
             ApplyPaging(paisesParam.PageSize * (paisesParam.PageIndex - 1), paisesParam.PageSize);

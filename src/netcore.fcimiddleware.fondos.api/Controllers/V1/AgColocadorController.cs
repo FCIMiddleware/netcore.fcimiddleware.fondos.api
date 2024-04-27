@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.AgColocadores.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.AgColocadores.Commands.Delete;
@@ -25,6 +26,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreateAgColocador")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<int>> CreateAgColocador([FromBody] CreateAgColocadoresCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +34,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdateAgColocador")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> UpdateAgColocador([FromBody] UpdateAgColocadoresCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +45,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeleteAgColocador")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult> DeleteAgColocador(int id)
         {
             var command = new DeleteAgColocadoresCommand
@@ -59,6 +61,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination", Name = "PaginationAgColocadores")]
         [ProducesResponseType(typeof(PaginationVm<AgColocadorVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<AgColocadorVm>>> GetPaginationSocGerentes([FromQuery] GetAllAgColocadoresQuery request)
         {
             var paginationAgColocadores = await _mediator.Send(request);
@@ -67,6 +70,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdAgColocadores")]
         [ProducesResponseType(typeof(AgColocador), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<AgColocador>> GetByIdAgColocadores([FromQuery] GetByIdAgColocadoresQuery request)
         {
             var agColocador = await _mediator.Send(request);

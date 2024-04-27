@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocDepositaria
         public SocDepositariasSpecification(SocDepositariasSpecificationParams socDepositariasParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(socDepositariasParam.Search) || p.Descripcion!.Contains(socDepositariasParam.Search)
+                  string.IsNullOrEmpty(socDepositariasParam.Search) || p.Descripcion!.ToUpper().Contains(socDepositariasParam.Search.ToUpper())
                 )
         {
             ApplyPaging(socDepositariasParam.PageSize * (socDepositariasParam.PageIndex - 1), socDepositariasParam.PageSize);

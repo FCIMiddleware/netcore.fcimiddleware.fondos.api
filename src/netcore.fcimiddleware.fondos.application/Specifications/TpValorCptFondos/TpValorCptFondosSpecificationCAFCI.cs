@@ -5,7 +5,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.TpValorCptFond
     public class TpValorCptFondosSpecificationCAFCI : BaseSpecification<TpValorCptFondo>
     {
         public TpValorCptFondosSpecificationCAFCI(string idCAFCI, int id = -1)
-            : base(p => p.IdCAFCI!.ToUpper().Equals(idCAFCI) && (p.Id! != id))
+            : base(p => p.IdCAFCI!.ToUpper().Equals(idCAFCI.ToUpper()) && (p.Id! != id))
         {
         }
     }

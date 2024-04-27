@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocGerentes
         public SocGerentesSpecification(SocGerentesSpecificationParams socGerentesParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(socGerentesParam.Search) || p.Descripcion!.Contains(socGerentesParam.Search)
+                  string.IsNullOrEmpty(socGerentesParam.Search) || p.Descripcion!.ToUpper().Contains(socGerentesParam.Search.ToUpper())
                 )
         {
             ApplyPaging(socGerentesParam.PageSize * (socGerentesParam.PageIndex - 1), socGerentesParam.PageSize);

@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Monedas
         public MonedasForCountingSpecification(MonedasSpecificationParams monedasParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(monedasParams.Search) || x.Descripcion!.Contains(monedasParams.Search)
+                  string.IsNullOrEmpty(monedasParams.Search) || x.Descripcion!.ToUpper().Contains(monedasParams.Search.ToUpper())
                   )
         { }
     }

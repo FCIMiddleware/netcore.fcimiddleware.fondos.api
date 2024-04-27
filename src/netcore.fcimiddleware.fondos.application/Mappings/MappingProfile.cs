@@ -46,18 +46,22 @@ namespace netcore.fcimiddleware.fondos.application.Mappings
             CreateMap<CreatePaisesCommand, Pais>();
             CreateMap<UpdatePaisesCommand, Pais>();
             CreateMap<Pais, PaisVm>();
+            CreateMap<Pais, PaisListVm>();
 
             CreateMap<CreateMonedasCommand, Moneda>();
             CreateMap<UpdateMonedasCommand, Moneda>();
             CreateMap<Moneda, MonedaVm>();
+            CreateMap<Moneda, MonedaListVm>();
 
             CreateMap<CreateSocGerentesCommand, SocGerente>();
             CreateMap<UpdateSocGerentesCommand, SocGerente>();
             CreateMap<SocGerente, SocGerenteVm>();
+            CreateMap<SocGerente, SocGerenteListVm>();
 
             CreateMap<CreateSocDepositariasCommand, SocDepositaria>();
             CreateMap<UpdateSocDepositariasCommand, SocDepositaria>();
             CreateMap<SocDepositaria, SocDepositariaVm>();
+            CreateMap<SocDepositaria, SocDepositariaListVm>();
 
             CreateMap<CreateAgColocadoresCommand, AgColocador>();
             CreateMap<UpdateAgColocadoresCommand, AgColocador>();

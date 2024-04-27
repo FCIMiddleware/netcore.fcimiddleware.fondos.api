@@ -4,8 +4,8 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocDepositaria
 {
     public class SocDepositariasSpecificationDescripcion : BaseSpecification<SocDepositaria>
     {
-        public SocDepositariasSpecificationDescripcion(string descripcion, int id = -1)
-            : base(p => p.Descripcion!.ToUpper().Equals(descripcion) && (p.Id! != id))
+        public SocDepositariasSpecificationDescripcion(string descripcion)
+            : base(p => p.Descripcion!.ToUpper().Equals(descripcion.ToUpper()))
         {
         }
     }

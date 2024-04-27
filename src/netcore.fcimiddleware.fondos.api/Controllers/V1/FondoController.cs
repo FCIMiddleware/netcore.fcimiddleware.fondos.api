@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.Fondos.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.Fondos.Commands.Delete;
@@ -25,6 +26,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreateFondo")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> CreateFondo([FromBody] CreateFondosCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +35,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdateFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateFondo([FromBody] UpdateFondosCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +46,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeleteFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteFondo(int id)
         {
             var command = new DeleteFondosCommand
@@ -59,6 +62,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination",Name = "PaginationFondo")]
         [ProducesResponseType(typeof(PaginationVm<FondoVm>),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<FondoVm>>> GetPaginationFondos([FromQuery] GetAllFondosQuery request)
         {
             var paginationFondos = await _mediator.Send(request);
@@ -67,6 +71,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdFondos")]
         [ProducesResponseType(typeof(Fondo), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Fondo>> GetByIdFondos([FromQuery] GetByIdFondosQuery request)
         {
             var fondo = await _mediator.Send(request);

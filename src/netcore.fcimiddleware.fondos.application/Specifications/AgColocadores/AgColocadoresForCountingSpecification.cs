@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.AgColocadores
         public AgColocadoresForCountingSpecification(AgColocadoresSpecificationParams agColocadoresParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(agColocadoresParams.Search) || x.Descripcion!.Contains(agColocadoresParams.Search)
+                  string.IsNullOrEmpty(agColocadoresParams.Search) || x.Descripcion!.ToUpper().Contains(agColocadoresParams.Search.ToUpper())
                   )
         { }
     }

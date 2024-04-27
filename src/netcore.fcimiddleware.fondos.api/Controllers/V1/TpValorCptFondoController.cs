@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.TpValorCptFondos.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.TpValorCptFondos.Commands.Delete;
@@ -25,6 +26,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreateTpValorCptFondo")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> CreateTpValorCptFondo([FromBody] CreateTpValorCptFondosCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +35,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdateTpValorCptFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateTpValorCptFondo([FromBody] UpdateTpValorCptFondosCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +46,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeleteTpValorCptFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteTpValorCptFondo(int id)
         {
             var command = new DeleteTpValorCptFondosCommand
@@ -59,6 +62,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination", Name = "PaginationTpValorCptFondo")]
         [ProducesResponseType(typeof(PaginationVm<TpValorCptFondoVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<TpValorCptFondoVm>>> GetPaginationTpValorCptFondo([FromQuery] GetAllTpValorCptFondosQuery request)
         {
             var paginationTpValorCptFondos = await _mediator.Send(request);
@@ -67,6 +71,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdTpValorCptFondo")]
         [ProducesResponseType(typeof(TpValorCptFondo), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<TpValorCptFondo>> GetByIdTpValorCptFondo([FromQuery] GetByIdTpValorCptFondosQuery request)
         {
             var tpValorCptFondo = await _mediator.Send(request);

@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocGerentes
         public SocGerentesForCountingSpecification(SocGerentesSpecificationParams socGerentesParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(socGerentesParams.Search) || x.Descripcion!.Contains(socGerentesParams.Search)
+                  string.IsNullOrEmpty(socGerentesParams.Search) || x.Descripcion!.ToUpper().Contains(socGerentesParams.Search.ToUpper())
                   )
         { }
     }

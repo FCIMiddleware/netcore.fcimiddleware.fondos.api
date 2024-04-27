@@ -64,10 +64,10 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.SocGerentes.Comma
         private async Task ValidateData(UpdateSocGerentesCommand request)
         {
 
-            var descripcionSpec = new SocGerentesSpecificationDescripcion(request.Descripcion!.ToUpper(), request.Id);
+            var descripcionSpec = new SocGerentesSpecificationDescripcion(request.Descripcion);
             var descripcionExists = await _unitOfWork.RepositoryRead<SocGerente>().GetByIdWithSpec(descripcionSpec);
 
-            if (descripcionExists != null)
+            if (descripcionExists != null && descripcionExists.Id != request.Id)
             {
                 _logger.LogError($"Update - {nameof(SocGerente)} {descripcionExists.Descripcion} ya existe");
                 throw new AlreadyExistsException(nameof(SocGerente), request.Descripcion);
@@ -75,10 +75,10 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.SocGerentes.Comma
 
             if (request.IdCAFCI != null)
             {
-                var idCAFCISpec = new SocGerentesSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
+                var idCAFCISpec = new SocGerentesSpecificationCAFCI(request.IdCAFCI);
                 var idCAFCIExists = await _unitOfWork.RepositoryRead<SocGerente>().GetByIdWithSpec(idCAFCISpec);
 
-                if (idCAFCIExists != null)
+                if (idCAFCIExists != null && idCAFCIExists.Id != request.Id)
                 {
                     _logger.LogError($"Update - {nameof(SocGerente)} {idCAFCIExists.IdCAFCI} ya existe");
                     throw new AlreadyExistsException(nameof(SocGerente), request.Descripcion);

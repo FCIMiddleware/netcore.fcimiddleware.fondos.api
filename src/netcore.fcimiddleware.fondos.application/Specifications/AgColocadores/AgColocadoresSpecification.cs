@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.AgColocadores
         public AgColocadoresSpecification(AgColocadoresSpecificationParams socAgColocadoresParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(socAgColocadoresParam.Search) || p.Descripcion!.Contains(socAgColocadoresParam.Search)
+                  string.IsNullOrEmpty(socAgColocadoresParam.Search) || p.Descripcion!.ToUpper().Contains(socAgColocadoresParam.Search.ToUpper())
                 )
         {
             ApplyPaging(socAgColocadoresParam.PageSize * (socAgColocadoresParam.PageIndex - 1), socAgColocadoresParam.PageSize);

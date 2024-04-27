@@ -7,9 +7,13 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Fondos
         public FondosSpecification(FondosSpecificationParams fondosParam)
             : base(
                   p => 
-                  string.IsNullOrEmpty(fondosParam.Search) || p.Descripcion!.Contains(fondosParam.Search)
+                  string.IsNullOrEmpty(fondosParam.Search) || p.Descripcion!.ToUpper().Contains(fondosParam.Search.ToUpper())
                 )
         {
+            AddInclude(p => p.Monedas);
+            AddInclude(p => p.SocGerentes);
+            AddInclude(p => p.SocDepositarias);
+            AddInclude(p => p.Paises);
             ApplyPaging(fondosParam.PageSize * (fondosParam.PageIndex - 1), fondosParam.PageSize);
             if(!string.IsNullOrEmpty(fondosParam.Sort)) 
             {

@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Monedas
         public MonedasSpecification(MonedasSpecificationParams monedasParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(monedasParam.Search) || p.Descripcion!.Contains(monedasParam.Search)
+                  string.IsNullOrEmpty(monedasParam.Search) || p.Descripcion!.ToUpper().Contains(monedasParam.Search.ToUpper())
                 )
         {
             ApplyPaging(monedasParam.PageSize * (monedasParam.PageIndex - 1), monedasParam.PageSize);

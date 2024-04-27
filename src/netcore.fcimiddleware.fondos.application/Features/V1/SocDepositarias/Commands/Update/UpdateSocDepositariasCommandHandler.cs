@@ -64,10 +64,10 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.C
         private async Task ValidateData(UpdateSocDepositariasCommand request)
         {
 
-            var descripcionSpec = new SocDepositariasSpecificationDescripcion(request.Descripcion!.ToUpper(), request.Id);
+            var descripcionSpec = new SocDepositariasSpecificationDescripcion(request.Descripcion);
             var descripcionExists = await _unitOfWork.RepositoryRead<SocDepositaria>().GetByIdWithSpec(descripcionSpec);
 
-            if (descripcionExists != null)
+            if (descripcionExists != null && descripcionExists.Id != request.Id)
             {
                 _logger.LogError($"Update - {nameof(SocDepositaria)} {descripcionExists.Descripcion} ya existe");
                 throw new AlreadyExistsException(nameof(SocDepositaria), request.Descripcion);
@@ -75,10 +75,10 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.C
 
             if (request.IdCAFCI != null)
             {
-                var idCAFCISpec = new SocDepositariasSpecificationCAFCI(request.IdCAFCI!.ToUpper(), request.Id);
+                var idCAFCISpec = new SocDepositariasSpecificationCAFCI(request.IdCAFCI);
                 var idCAFCIExists = await _unitOfWork.RepositoryRead<SocDepositaria>().GetByIdWithSpec(idCAFCISpec);
 
-                if (idCAFCIExists != null)
+                if (idCAFCIExists != null && idCAFCIExists.Id != request.Id)
                 {
                     _logger.LogError($"Update - {nameof(SocDepositaria)} {idCAFCIExists.IdCAFCI} ya existe");
                     throw new AlreadyExistsException(nameof(SocDepositaria), request.Descripcion);

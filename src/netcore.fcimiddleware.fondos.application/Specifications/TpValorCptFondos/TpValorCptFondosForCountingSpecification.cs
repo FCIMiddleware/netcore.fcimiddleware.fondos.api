@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.TpValorCptFond
         public TpValorCptFondosForCountingSpecification(TpValorCptFondosSpecificationParams tpValorCptFondoParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(tpValorCptFondoParams.Search) || x.Descripcion!.Contains(tpValorCptFondoParams.Search)
+                  string.IsNullOrEmpty(tpValorCptFondoParams.Search) || x.Descripcion!.ToUpper().Contains(tpValorCptFondoParams.Search.ToUpper())
                   )
         { }
     }
