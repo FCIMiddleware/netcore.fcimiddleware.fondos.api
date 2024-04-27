@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.CondIngEgrFondos.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.CondIngEgrFondos.Commands.Delete;
@@ -25,6 +26,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreateCondIngEgrFondo")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<int>> CreateCondIngEgrFondo([FromBody] CreateCondIngEgrFondosCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +35,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdateCondIngEgrFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateCondIngEgrFondo([FromBody] UpdateCondIngEgrFondosCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +46,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeleteCondIngEgrFondo")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteCondIngEgrFondo(int id)
         {
             var command = new DeleteCondIngEgrFondosCommand
@@ -59,6 +62,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination", Name = "PaginationCondIngEgrFondo")]
         [ProducesResponseType(typeof(PaginationVm<CondIngEgrFondoVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<CondIngEgrFondoVm>>> GetPaginationCondIngEgrFondo([FromQuery] GetAllCondIngEgrFondosQuery request)
         {
             var paginationCondIngEgrFondos = await _mediator.Send(request);
@@ -67,6 +71,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdCondIngEgrFondo")]
         [ProducesResponseType(typeof(CondIngEgrFondo), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<CondIngEgrFondo>> GetByIdCondIngEgrFondo([FromQuery] GetByIdCondIngEgrFondosQuery request)
         {
             var condIngEgrFondo = await _mediator.Send(request);

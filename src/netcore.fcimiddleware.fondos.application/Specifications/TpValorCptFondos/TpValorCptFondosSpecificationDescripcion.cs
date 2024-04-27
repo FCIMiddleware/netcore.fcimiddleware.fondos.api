@@ -5,7 +5,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.TpValorCptFond
     public class TpValorCptFondosSpecificationDescripcion : BaseSpecification<TpValorCptFondo>
     {
         public TpValorCptFondosSpecificationDescripcion(string descripcion, int id = -1)
-            : base(p => p.Descripcion!.ToUpper().Equals(descripcion) && (p.Id! != id))
+            : base(p => p.Descripcion!.ToUpper().Equals(descripcion.ToUpper()) && (p.Id! != id))
         {
         }
     }

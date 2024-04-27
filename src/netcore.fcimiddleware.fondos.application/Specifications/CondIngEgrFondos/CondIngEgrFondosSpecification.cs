@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.CondIngEgrFond
         public CondIngEgrFondosSpecification(CondIngEgrFondosSpecificationParams fondosParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(fondosParam.Search) || p.Descripcion!.Contains(fondosParam.Search)
+                  string.IsNullOrEmpty(fondosParam.Search) || p.Descripcion!.ToUpper().Contains(fondosParam.Search.ToUpper())
                 )
         {
             ApplyPaging(fondosParam.PageSize * (fondosParam.PageIndex - 1), fondosParam.PageSize);

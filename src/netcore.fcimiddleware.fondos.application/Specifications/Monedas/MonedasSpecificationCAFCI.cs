@@ -5,7 +5,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Monedas
     public class MonedasSpecificationCAFCI : BaseSpecification<Moneda>
     {
         public MonedasSpecificationCAFCI(string idCAFCI, int id = -1)
-            : base(p => p.IdCAFCI!.ToUpper().Equals(idCAFCI) && (p.Id! != id))
+            : base(p => p.IdCAFCI!.ToUpper().Equals(idCAFCI.ToUpper()) && (p.Id! != id))
         {
         }
     }

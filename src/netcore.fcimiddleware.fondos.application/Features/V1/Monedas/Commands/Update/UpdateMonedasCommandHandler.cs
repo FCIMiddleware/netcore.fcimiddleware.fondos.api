@@ -64,10 +64,10 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.Monedas.Commands.
         private async Task ValidateData(UpdateMonedasCommand request)
         {
 
-            var descripcionSpec = new MonedasSpecificationDescripcion(request.Descripcion!.ToUpper(), request.Id);
+            var descripcionSpec = new MonedasSpecificationDescripcion(request.Descripcion);
             var descripcionExists = await _unitOfWork.RepositoryRead<Moneda>().GetByIdWithSpec(descripcionSpec);
 
-            if (descripcionExists != null)
+            if (descripcionExists != null && descripcionExists.Id != request.Id)
             {
                 _logger.LogError($"Update - {nameof(Moneda)} {descripcionExists.Descripcion} ya existe");
                 throw new AlreadyExistsException(nameof(Moneda), request.Descripcion);

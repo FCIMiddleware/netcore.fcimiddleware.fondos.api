@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.TpValorCptFond
         public TpValorCptFondosSpecification(TpValorCptFondosSpecificationParams tpValorCptFondoParam)
             : base(
                   p =>
-                  string.IsNullOrEmpty(tpValorCptFondoParam.Search) || p.Descripcion!.Contains(tpValorCptFondoParam.Search)
+                  string.IsNullOrEmpty(tpValorCptFondoParam.Search) || p.Descripcion!.ToUpper().Contains(tpValorCptFondoParam.Search.ToUpper())
                 )
         {
             ApplyPaging(tpValorCptFondoParam.PageSize * (tpValorCptFondoParam.PageIndex - 1), tpValorCptFondoParam.PageSize);

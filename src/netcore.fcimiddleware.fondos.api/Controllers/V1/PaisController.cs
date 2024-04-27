@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Commands.Delete;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Commands.Update;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.GetAll;
+using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.GetByDescripcion;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.GetById;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.Vms;
 using netcore.fcimiddleware.fondos.domain;
@@ -25,6 +27,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreatePais")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<int>> CreatePais([FromBody] CreatePaisesCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +35,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdatePais")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdatePais([FromBody] UpdatePaisesCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +46,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeletePais")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeletePais(int id)
         {
             var command = new DeletePaisesCommand
@@ -59,6 +62,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination", Name = "PaginationPais")]
         [ProducesResponseType(typeof(PaginationVm<PaisVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<PaisVm>>> GetPaginationPaises([FromQuery] GetAllPaisesQuery request)
         {
             var paginationPaises = await _mediator.Send(request);
@@ -67,10 +71,20 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdPais")]
         [ProducesResponseType(typeof(Pais), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<Pais>> GetByIdPais([FromQuery] GetByIdPaisesQuery request)
         {
-            var pais = await _mediator.Send(request);
-            return Ok(pais);
+            var paises = await _mediator.Send(request);
+            return Ok(paises);
+        }
+
+        [HttpGet("list", Name = "GetByDescripcionPais")]
+        [ProducesResponseType(typeof(PaginationVm<PaisListVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PaginationVm<PaisListVm>>> GetByDescripcionPais([FromQuery] GetByDescripcionPaisesQuery request)
+        {
+            var paises = await _mediator.Send(request);
+            return Ok(paises);
         }
     }
 }

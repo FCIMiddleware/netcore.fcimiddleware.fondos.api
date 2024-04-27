@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.CondIngEgrFond
         public CondIngEgrFondosForCountingSpecification(CondIngEgrFondosSpecificationParams condIngEgrFondosParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(condIngEgrFondosParams.Search) || x.Descripcion!.Contains(condIngEgrFondosParams.Search)
+                  string.IsNullOrEmpty(condIngEgrFondosParams.Search) || x.Descripcion!.ToUpper().Contains(condIngEgrFondosParams.Search.ToUpper())
                   )
         { }
     }

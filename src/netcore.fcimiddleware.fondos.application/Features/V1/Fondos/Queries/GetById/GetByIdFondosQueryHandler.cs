@@ -26,7 +26,7 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.Fondos.Queries.Ge
         public async Task<Fondo> Handle(GetByIdFondosQuery request, CancellationToken cancellationToken)
         {
             var fondoSpec = new FondosSpecificationId(request.Id);
-            return await _unitOfWork.RepositoryRead<Fondo>().GetByIdWithSpec(fondoSpec);
+            return await _unitOfWork.RepositoryRead<Fondo>().GetByIdWithSpec(fondoSpec);            
         }
     }
 }

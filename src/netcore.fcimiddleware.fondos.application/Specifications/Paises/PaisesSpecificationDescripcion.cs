@@ -4,8 +4,8 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Paises
 {
     public class PaisesSpecificationDescripcion : BaseSpecification<Pais>
     {
-        public PaisesSpecificationDescripcion(string descripcion, int id = -1)
-            : base(p => p.Descripcion!.ToUpper().Equals(descripcion) && (p.Id! != id))
+        public PaisesSpecificationDescripcion(string descripcion)
+            : base(p => p.Descripcion!.ToUpper().Equals(descripcion.ToUpper()))
         {
         }
     }

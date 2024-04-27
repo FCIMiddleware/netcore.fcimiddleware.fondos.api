@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Castle.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -6,8 +7,10 @@ using Moq;
 using netcore.fcimiddleware.fondos.application.Exceptions;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Commands.Update;
 using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.GetById;
+using netcore.fcimiddleware.fondos.application.Features.V1.Paises.Queries.Vms;
 using netcore.fcimiddleware.fondos.application.Mappings;
 using netcore.fcimiddleware.fondos.application.unittest.Mocks;
+using netcore.fcimiddleware.fondos.domain;
 using netcore.fcimiddleware.fondos.infrastructure.Repositories;
 using Shouldly;
 
@@ -41,7 +44,6 @@ namespace netcore.fcimiddleware.fondos.application.unittest.Features.V1.Paises.C
         public async Task UpdatePaisesCommand_ReturnsPais_Without_IdCAFCI()
         {
             var search = await _unitOfWork.Object.ApplicationReadDbContext.Paises!.Where(x => x.IsDeleted == false && x.IsSincronized == false).FirstOrDefaultAsync();
-
             var edit = "Fondo Editado";
 
             var paisInput = new UpdatePaisesCommand { Id = search.Id, Descripcion = edit };
@@ -111,7 +113,6 @@ namespace netcore.fcimiddleware.fondos.application.unittest.Features.V1.Paises.C
         public async Task UpdatePaisesCommand_ThrowsDeletedException()
         {
             var search = await _unitOfWork.Object.ApplicationReadDbContext.Paises!.Where(x => x.IsDeleted == true && x.IsSincronized == false).FirstOrDefaultAsync();
-
             var paisInput = new UpdatePaisesCommand { Id = search!.Id };
             _mediator
                 .Setup(m => m.Send(It.IsAny<GetByIdPaisesQuery>(), It.IsAny<CancellationToken>()))
@@ -124,7 +125,6 @@ namespace netcore.fcimiddleware.fondos.application.unittest.Features.V1.Paises.C
         public async Task UpdatePaisesCommand_ThrowsSincronizedException()
         {
             var search = await _unitOfWork.Object.ApplicationReadDbContext.Paises!.Where(x => x.IsDeleted == false && x.IsSincronized == true).FirstOrDefaultAsync();
-
             var paisInput = new UpdatePaisesCommand { Id = search!.Id };
             _mediator
                 .Setup(m => m.Send(It.IsAny<GetByIdPaisesQuery>(), It.IsAny<CancellationToken>()))

@@ -59,7 +59,6 @@ namespace netcore.fcimiddleware.fondos.application.unittest.Mocks
             _unitOfWork.ApplicationReadDbContext.SaveChanges();
 
             var paises = fixture.Build<Pais>()
-                .Without(tr => tr.Fondos)
                 .With(x => x.IsDeleted, () => r.Next(0, 2) == 0)
                 .With(x => x.IsSincronized, () => r.Next(0, 2) == 0)
                 .CreateMany(30)

@@ -7,8 +7,13 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Fondos
         public FondosForCountingSpecification(FondosSpecificationParams fondosParams) 
             : base (
                   x => 
-                  string.IsNullOrEmpty(fondosParams.Search) || x.Descripcion!.Contains(fondosParams.Search)
+                  string.IsNullOrEmpty(fondosParams.Search) || x.Descripcion!.ToUpper().Contains(fondosParams.Search.ToUpper())
                   )
-        { }
+        {
+            AddInclude(p => p.Monedas);
+            AddInclude(p => p.SocGerentes);
+            AddInclude(p => p.SocDepositarias);
+            AddInclude(p => p.Paises);
+        }
     }
 }

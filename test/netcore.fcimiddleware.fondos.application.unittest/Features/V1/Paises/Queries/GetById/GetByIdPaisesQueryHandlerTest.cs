@@ -37,7 +37,6 @@ namespace netcore.fcimiddleware.fondos.application.unittest.Features.V1.Paises.Q
         public async Task GetByIdPaisTest_Return_Ok()
         {
             var searchEdit = await _unitOfWork.Object.ApplicationReadDbContext.Paises!.FirstOrDefaultAsync();
-
             var request = new GetByIdPaisesQuery
             {
                 Id = searchEdit!.Id

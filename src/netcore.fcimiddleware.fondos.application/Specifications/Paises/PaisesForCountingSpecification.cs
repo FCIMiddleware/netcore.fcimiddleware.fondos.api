@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.Paises
         public PaisesForCountingSpecification(PaisesSpecificationParams paisesParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(paisesParams.Search) || x.Descripcion!.Contains(paisesParams.Search)
+                  string.IsNullOrEmpty(paisesParams.Search) || x.Descripcion!.ToUpper().Contains(paisesParams.Search.ToUpper())
                   )
         { }
     }

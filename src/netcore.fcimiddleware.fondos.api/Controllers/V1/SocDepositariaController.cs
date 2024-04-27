@@ -1,10 +1,12 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using netcore.fcimiddleware.fondos.api.Errors;
 using netcore.fcimiddleware.fondos.application.Features.Shared.Queries;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Commands.Create;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Commands.Delete;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Commands.Update;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Queries.GetAll;
+using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Queries.GetByDescripcion;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Queries.GetById;
 using netcore.fcimiddleware.fondos.application.Features.V1.SocDepositarias.Queries.Vms;
 using netcore.fcimiddleware.fondos.domain;
@@ -25,6 +27,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPost(Name = "CreateSocDepositaria")]
         [ProducesResponseType((int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<int>> CreateSocDepositaria([FromBody] CreateSocDepositariasCommand request)
         {
             return await _mediator.Send(request);
@@ -32,8 +35,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpPut(Name = "UpdateSocDepositaria")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> UpdateSocDepositaria([FromBody] UpdateSocDepositariasCommand request)
         {
             await _mediator.Send(request);
@@ -43,8 +46,8 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpDelete("{id}", Name = "DeleteSocDepositaria")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesDefaultResponseType]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> DeleteSocDepositaria(int id)
         {
             var command = new DeleteSocDepositariasCommand
@@ -59,6 +62,7 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("pagination", Name = "PaginationSocDepositaria")]
         [ProducesResponseType(typeof(PaginationVm<SocDepositariaVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<PaginationVm<SocDepositariaVm>>> GetPaginationSocGerentes([FromQuery] GetAllSocDepositariasQuery request)
         {
             var paginationSocDepositarias = await _mediator.Send(request);
@@ -67,7 +71,17 @@ namespace netcore.fcimiddleware.fondos.api.Controllers.V1
 
         [HttpGet("id", Name = "GetByIdSocDepositarias")]
         [ProducesResponseType(typeof(SocDepositaria), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
         public async Task<ActionResult<SocDepositaria>> GetByIdSocDepositarias([FromQuery] GetByIdSocDepositariasQuery request)
+        {
+            var socDepositaria = await _mediator.Send(request);
+            return Ok(socDepositaria);
+        }
+
+        [HttpGet("list", Name = "GetByDescripcionSocDepositaria")]
+        [ProducesResponseType(typeof(PaginationVm<SocDepositariaListVm>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CodeErrorException), StatusCodes.Status500InternalServerError)]
+        public async Task<ActionResult<PaginationVm<SocDepositariaListVm>>> GetByDescripcionSocDepositaria([FromQuery] GetByDescripcionSocDepositariasQuery request)
         {
             var socDepositaria = await _mediator.Send(request);
             return Ok(socDepositaria);

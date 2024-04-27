@@ -7,7 +7,7 @@ namespace netcore.fcimiddleware.fondos.application.Specifications.SocDepositaria
         public SocDepositariasForCountingSpecification(SocDepositariasSpecificationParams socDepositariasParams)
             : base(
                   x =>
-                  string.IsNullOrEmpty(socDepositariasParams.Search) || x.Descripcion!.Contains(socDepositariasParams.Search)
+                  string.IsNullOrEmpty(socDepositariasParams.Search) || x.Descripcion!.ToUpper().Contains(socDepositariasParams.Search.ToUpper())
                   )
         { }
     }

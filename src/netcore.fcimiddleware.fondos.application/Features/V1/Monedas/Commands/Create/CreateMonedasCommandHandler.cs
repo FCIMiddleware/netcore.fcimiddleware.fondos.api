@@ -38,7 +38,7 @@ namespace netcore.fcimiddleware.fondos.application.Features.V1.Monedas.Commands.
 
         private async Task ValidateData(CreateMonedasCommand request)
         {
-            var descripcionSpec = new MonedasSpecificationDescripcion(request.Descripcion!.ToUpper());
+            var descripcionSpec = new MonedasSpecificationDescripcion(request.Descripcion);
             var descripcionExists = await _unitOfWork.RepositoryRead<Moneda>().GetByIdWithSpec(descripcionSpec);
 
             if (descripcionExists != null)
